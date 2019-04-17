@@ -58,6 +58,8 @@ address_matKul searchMatkul(infotype X,multiList L);
 address_Dosen searchDosen(infotype X,multiList L);
 bool cekRelasi(address_matKul M, address_Dosen D);
 void addRelasi(multiList &L);
+void tambahDosen(multiList &L);
+void tambahMatkul(multiList &L);
 
 
 #endif //TUBES_STD_TUBES_H

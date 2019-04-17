@@ -48,13 +48,13 @@ void insertDosen(address_Dosen P, multiList &L){
 }
 address_matKul searchMatkul(infotype X,multiList L){
     auto P = first_Matkul(L);
-    while (infoM(P)!=X && P!=NIL)
+    while (P!=NIL && infoM(P)!=X )
         P = nextM(P);
     return P;
 }
 address_Dosen searchDosen(infotype X,multiList L){
     auto P = first_Dosen(L);
-    while (infoD(P)!=X && P!=NIL)
+    while (P!=NIL && infoD(P)!=X )
         P = nextD(P);
     return P;
 }
@@ -64,9 +64,40 @@ bool cekRelasi(address_matKul M, address_Dosen D){
     while (R != NIL && link(R)!=D){
         R = nextR(R);
     }
-    if (link(R)==D)
+    if (rel(M)!=NIL && link(R)==D) {
         valid = true;
+    }
     return valid;
+}
+void tambahDosen(multiList &L){
+    infotype nama;
+    address_Dosen P = first_Dosen(L);
+    cout<<"Masukkan nama Dosen : ";cin>>nama;
+    while(P != NIL && infoD(P)!=nama){
+        P = nextD(P);
+    }
+    if (P==NIL || infoD(P)!=nama) {
+        P = allocatedDosen(nama);
+        insertDosen(P, L);
+        cout<<"Dosen atas nama "<<nama<<" berhasil di tambahkan...\n";
+    }else if (infoD(P)==nama){
+        cout<<"Dosen atas nama "<<nama<<" sudah terdaftar...\n";
+    }
+}
+void tambahMatkul(multiList &L){
+    infotype nama;
+    address_matKul P = first_Matkul(L);
+    cout<<"Masukkan nama Mata Kuliah : ";cin>>nama;
+    while(P != NIL && infoM(P)!=nama){
+        P = nextM(P);
+    }
+    if (P==NIL || infoM(P)!=nama) {
+        P = allocatedMatkul(nama);
+        insertMatkul(P, L);
+        cout<<"Mata Kuliah "<<nama<<" berhasil di tambahkan...\n";
+    }else if (infoM(P)==nama){
+        cout<<"Mata Kuliah "<<nama<<" sudah terdaftar...\n";
+    }
 }
 void addRelasi(multiList &L){
     infotype input;
@@ -74,25 +105,25 @@ void addRelasi(multiList &L){
     address_Dosen Q;
     bool valid = false;
     while (!valid){
-        cout<<"Masukkan nama Mata kuliah (kosongkan untuk kembali): "; cin>>input;
+        cout<<"Masukkan nama Mata kuliah ('menu' untuk kembali): "; cin>>input;
         P = searchMatkul(input,L);
-        if (input == "" || P != NIL){
+        if (input == "menu" || P != NIL){
             valid = true;
         }else {
             cout<<"Mata kuliah tidak tersedia.\n";
         }
     }
     valid = false;
-    while (!valid && input != ""){
-        cout<<"Masukkan nama Dosen (kosongkan untuk kembali): "; cin>>input;
+    while (!valid && input != "menu"){
+        cout<<"Masukkan nama Dosen ('menu' untuk kembali): "; cin>>input;
         Q = searchDosen(input,L);
-        if (input == "" || Q != NIL){
+        if (input == "menu" || Q != NIL){
             valid = true;
         }else{
             cout<<"Dosen tidak tersedia.\n";
         }
     }
-    if (input != ""){
+    if (input != "menu"){
         if (!cekRelasi(P,Q)){
             address_relasi R = allocatedRel();
             if (rel(P)==NIL) {
