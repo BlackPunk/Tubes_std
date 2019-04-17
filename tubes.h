@@ -7,14 +7,15 @@
 #define nextM(P) P->nextM
 #define nextD(P) P->nextD
 #define nextR(P) P->nextR
-#define prevM(P) P->prevM
-#define prevD(P) P->prevD
 #define infoM(P) P->infoM
 #define infoD(P) P->infoD
 #define relasi(P) P->relasi
 #define link(P) P->link
 #define first_Matkul(L) L.first_Matkul
 #define first_Dosen(L) L.first_Dosen
+#define last_Matkul(L) L.last_Matkul
+#define last_Dosen(L) L.last_Dosen
+
 #define NIL NULL
 
 #include <iostream>
@@ -30,7 +31,6 @@ typedef struct Dosen *address_Dosen;
 struct mataKuliah{
     infotype infoM;
     address_matKul nextM;
-    address_matKul prevM;
     address_relasi relasi;
 };
 struct relasi{
@@ -40,16 +40,20 @@ struct relasi{
 struct Dosen{
     infotype infoD;
     address_Dosen nextD;
-    address_Dosen prevD;
 };
-struct MultiList{
+struct multiList{
     address_matKul first_Matkul;
+    address_matKul last_Matkul;
     address_Dosen first_Dosen;
+    address_Dosen last_Dosen;
 };
 
-void createList(MultiList &L);
+void createList(multiList &L);
 address_matKul allocatedMatkul(infotype X);
 address_Dosen allocatedDosen(infotype X);
 address_relasi allocatedRel(infotype X);
+void insertMatkul(address_matKul P, multiList &L);
+void insertDosen(address_Dosen P, multiList &L);
+
 
 #endif //TUBES_STD_TUBES_H
