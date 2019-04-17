@@ -9,7 +9,7 @@
 #define nextR(P) P->nextR
 #define infoM(P) P->infoM
 #define infoD(P) P->infoD
-#define relasi(P) P->relasi
+#define rel(P) P->rel
 #define link(P) P->link
 #define first_Matkul(L) L.first_Matkul
 #define first_Dosen(L) L.first_Dosen
@@ -31,7 +31,7 @@ typedef struct Dosen *address_Dosen;
 struct mataKuliah{
     infotype infoM;
     address_matKul nextM;
-    address_relasi relasi;
+    address_relasi rel;
 };
 struct relasi{
     address_relasi nextR;
@@ -51,9 +51,13 @@ struct multiList{
 void createList(multiList &L);
 address_matKul allocatedMatkul(infotype X);
 address_Dosen allocatedDosen(infotype X);
-address_relasi allocatedRel(infotype X);
+address_relasi allocatedRel();
 void insertMatkul(address_matKul P, multiList &L);
 void insertDosen(address_Dosen P, multiList &L);
+address_matKul searchMatkul(infotype X,multiList L);
+address_Dosen searchDosen(infotype X,multiList L);
+bool cekRelasi(address_matKul M, address_Dosen D);
+void addRelasi(multiList &L);
 
 
 #endif //TUBES_STD_TUBES_H
