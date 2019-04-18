@@ -243,3 +243,24 @@ void TampilMataKuliah(multiList L){
         cout<<"Tidak ada mata kuliah yang tersedia.\n";
     }
 }
+void tampilPengajarMatkulterbanyak(multiList L) {
+    address_matKul M = first_Matkul(L);
+    address_matKul Maks;
+    address_relasi R;
+    int MAX = 0;
+    while (M != NIL) {
+        int c = 0;
+        R = rel(M);
+        while (R != NIL) {
+            c = c + 1;
+            R = nextR(R);
+        }
+        if (c > MAX) {
+            MAX = c;
+            Maks = M;
+        }
+        M = nextM(M);
+    }
+    cout<<"Mata kuliah yang diajarkan oleh sebagian besar dosen adalah "<<infoM(Maks)<<endl;
+}
+
