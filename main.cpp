@@ -27,5 +27,6 @@ int main() {
                 cin.get();
         }
     }
+    cout <<"test";
     return 0;
 }
