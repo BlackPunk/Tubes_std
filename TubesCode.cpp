@@ -273,19 +273,26 @@ void tampilPengajarMatkulterbanyak(multiList L) {
     address_matKul Maks;
     address_relasi R;
     int MAX = 0;
-    while (M != NIL) {
-        int c = 0;
-        R = rel(M);
-        while (R != NIL) {
-            c = c + 1;
-            R = nextR(R);
+    if (M!=NIL) {
+        while (M != NIL) {
+            int Count = 0;
+            R = rel(M);
+            while (R != NIL) {
+                Count += 1;
+                R = nextR(R);
+            }
+            if (Count > MAX) {
+                MAX = Count;
+                Maks = M;
+            }
+            M = nextM(M);
         }
-        if (c > MAX) {
-            MAX = c;
-            Maks = M;
-        }
-        M = nextM(M);
+        if (MAX > 0)
+            cout <<"Mata kuliah yang diajarkan oleh sebagian besar dosen adalah " << infoM(Maks) << endl;
+        else
+            cout<<"Semua Mata kuliah tidak mempunyai Dosen pengajar.\n";
     }
-    cout<<"Mata kuliah yang diajarkan oleh sebagian besar dosen adalah "<<infoM(Maks)<<endl;
+    else
+        cout<<"Tidak ada Mata kuliah yang tersedia.\n";
 }
 
