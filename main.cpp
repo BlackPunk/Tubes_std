@@ -5,7 +5,7 @@ int main() {
     createList(L);
     int Pil= -1;
     while (Pil != 99){
-        cout<<"1. Tambahkan Dosen\n";
+        cout<<"1.  Dosen\n";
         cout<<"2. Tambahkan Mata Kuliah\n";
         cout<<"3. Hubungkan Dosen dengan Mata Kuliah\n";
         cout<<"4. Hapus Mata Kuliah\n";
