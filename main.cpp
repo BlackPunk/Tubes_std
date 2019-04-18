@@ -10,7 +10,8 @@ int main() {
         cout<<"3. Hubungkan Dosen dengan Mata Kuliah\n";
         cout<<"4. Hapus Mata Kuliah\n";
         cout<<"5. Hapus Dosen\n";
-        cout<<"99. Out\n";
+        cout<<"8. Menampilkan dosen yang mengajar mata kuliah tertentu\n";
+        cout<<"99. Keluar\n";
         cout<<"Masukkan Pilihan : ";cin>>Pil;
         switch (Pil){
             case 1:
@@ -26,6 +27,8 @@ int main() {
                 HapusMatkul(L); break;
             case 5:
                 HapusDosen(L); break;
+            case 8:
+                tampilPengajarMatkul(L); break;
             case 99:
                 break;
             default:
