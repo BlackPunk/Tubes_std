@@ -58,11 +58,11 @@ address_Dosen searchDosen(infotype X,multiList L){
 bool cekRelasi(address_matKul M, address_Dosen D){
     bool valid = false;
     address_relasi R = rel(M);
-    while (R != NIL && link(R)!=D){
+    while (R != NIL && !valid){
+        if (link(R)==D){
+            valid = true;
+        }
         R = nextR(R);
-    }
-    if (rel(M)!=NIL && link(R)==D) {
-        valid = true;
     }
     return valid;
 }
@@ -216,5 +216,30 @@ void HapusDosen(multiList &L) {
         delete P;
     } else {
         cout<<"Dosen tidak ditemukan.\n";
+    }
+}
+void TampilMataKuliah(multiList L){
+    address_matKul P = first_Matkul(L);
+    if (P!=NIL) {
+        while (P != NIL) {
+            cout << "Mata Kuliah : " << infoM(P) << "\n";
+            cout << "Dosen : ";
+            address_relasi R = rel(P);
+            if (R != NIL) {
+                while (R != NIL) {
+                    address_Dosen D = link(R);
+                    if (D != NIL) {
+                        cout << infoD(D) << ", ";
+                    }
+                    R = nextR(R);
+                }
+                cout<<endl;
+            } else {
+                cout << "Tidak ada.\n";
+            }
+            P = nextM(P);
+        }
+    }else{
+        cout<<"Tidak ada mata kuliah yang tersedia.\n";
     }
 }
