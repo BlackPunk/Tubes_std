@@ -8,20 +8,20 @@ void createList(multiList &L){
     first_Dosen(L) = NIL;
 }
 address_matKul allocatedMatkul(infotype X){
-    auto P = new mataKuliah;
+    address_matKul P = new mataKuliah;
     infoM(P) = X;
     nextM(P) = NIL;
     rel(P) = NIL;
     return  P;
 }
 address_Dosen allocatedDosen(infotype X){
-    auto P = new Dosen;
+    address_Dosen P = new Dosen;
     infoD(P) = X;
     nextD(P) = NIL;
     return P;
 }
 address_relasi allocatedRel(){
-    auto P = new relasi;
+    address_relasi P = new relasi;
     nextR(P) = NIL;
     link(P) = NIL;
     return P;
@@ -47,13 +47,13 @@ void insertDosen(address_Dosen P, multiList &L){
     }
 }
 address_matKul searchMatkul(infotype X,multiList L){
-    auto P = first_Matkul(L);
+    address_matKul P = first_Matkul(L);
     while (P!=NIL && infoM(P)!=X )
         P = nextM(P);
     return P;
 }
 address_Dosen searchDosen(infotype X,multiList L){
-    auto P = first_Dosen(L);
+    address_Dosen P = first_Dosen(L);
     while (P!=NIL && infoD(P)!=X )
         P = nextD(P);
     return P;
@@ -141,6 +141,4 @@ void addRelasi(multiList &L){
             cout<<"Dosen atas nama "<<infoD(Q)<<" sudah mengajar mata kuliah "<<infoM(P)<<"\n";
         }
     }
-
-
 }
