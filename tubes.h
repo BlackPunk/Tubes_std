@@ -60,6 +60,8 @@ bool cekRelasi(address_matKul M, address_Dosen D);
 void addRelasi(multiList &L);
 void tambahDosen(multiList &L);
 void tambahMatkul(multiList &L);
+void HapusMatkul(multiList &L);
+void HapusDosen(multiList &L);
 
 
 #endif //TUBES_STD_TUBES_H
