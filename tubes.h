@@ -1,4 +1,3 @@
-
 #ifndef TUBES_STD_TUBES_H
 #define TUBES_STD_TUBES_H
 #define nextM(P) P->nextM
@@ -12,7 +11,6 @@
 #define first_Dosen(L) L.first_Dosen
 #define last_Matkul(L) L.last_Matkul
 #define last_Dosen(L) L.last_Dosen
-
 #define NIL NULL
 
 #include <iostream>
@@ -63,5 +61,7 @@ void HapusDosen(multiList &L);
 void TampilMataKuliah(multiList L);
 void tampilPengajarMatkulterbanyak(multiList L);
 void tampilPengajarMatkul(multiList L);
+int cek3matkul(address_matKul M, address_Dosen D);
+void tampilDosen3Matkul(multiList L);
 
 #endif //TUBES_STD_TUBES_H
