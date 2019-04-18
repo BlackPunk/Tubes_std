@@ -168,6 +168,26 @@ void HapusMatkul(multiList &L) {
         cout<<"Mata kuliah tidak ditemukan.\n";
     }
 }
+void tampilPengajarMatkul(multiList L) {
+    infotype nama;
+    cout<<"Mata kuliah yang dicari : ";
+    cin>>nama;
+    address_matKul P = searchMatkul(nama, L);
+    if (P != NIL) {
+        address_relasi Q = rel(P);
+        cout<<"Dosen yang mengajar mata kuliah "<<infoM(P)<<" : \n";
+        int c = 0;
+        while (Q != NIL) {
+            if (link(Q) != NIL) {
+                c = c + 1;
+                cout<<c<<". "<<infoD(link(Q))<<endl;
+            }
+            Q = nextR(Q);
+        }
+    } else {
+        cout<<"Mata kuliah yang dicari tidak ditemukan.\n";
+    }
+}
 void HapusDosen(multiList &L) {
     infotype nama;
     cout<<"Nama dosen yang akan dihapus : ";
