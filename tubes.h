@@ -59,6 +59,7 @@ void tambahDosen(multiList &L);
 void tambahMatkul(multiList &L);
 void HapusMatkul(multiList &L);
 void HapusDosen(multiList &L);
+void TampilMataKuliah(multiList L);
 void tampilPengajarMatkul(multiList L);
 
 #endif //TUBES_STD_TUBES_H
