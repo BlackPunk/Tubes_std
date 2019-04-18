@@ -9,7 +9,7 @@ int main() {
         cout<<"2. Tambahkan Mata Kuliah\n";
         cout<<"3. Hubungkan Dosen dengan Mata Kuliah\n";
         cout<<"4. Hapus Mata Kuliah\n";
-        cout<<"5. Hapus osen\n";
+        cout<<"5. Hapus Dosen\n";
         cout<<"99. Keluar\n";
         cout<<"Masukkan Pilihan : ";cin>>Pil;
         switch (Pil){
