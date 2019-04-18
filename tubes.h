@@ -58,6 +58,7 @@ void addRelasi(multiList &L);
 void tambahDosen(multiList &L);
 void tambahMatkul(multiList &L);
 void HapusMatkul(multiList &L);
+void hapusRelasi(multiList &L, address_Dosen D);
 void HapusDosen(multiList &L);
 void TampilMataKuliah(multiList L);
 void tampilPengajarMatkulterbanyak(multiList L);

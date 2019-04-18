@@ -144,10 +144,10 @@ void HapusMatkul(multiList &L) {
     cout<<"Mata kuliah yang akan dihapus : ";
     cin>>nama;
     address_matKul P = searchMatkul(nama, L);
-    if (P != NULL && infoM(P) == nama) {
+    if (P != NULL) {
         if (P == first_Matkul(L)) {
+            first_Matkul(L) = nextM(P);
             nextM(P) = NIL;
-            first_Matkul(L) = P;
         } else if (P == last_Matkul(L)) {
             address_matKul Q = first_Matkul(L);
             while (nextM(Q) != P) {
@@ -163,6 +163,7 @@ void HapusMatkul(multiList &L) {
             nextM(Q) = nextM(P);
             nextM(P) = NIL;
         }
+        delete P;
         cout<<"Mata kuliah berhasil di hapus.\n";
     } else {
         cout<<"Mata kuliah tidak ditemukan.\n";
@@ -188,15 +189,39 @@ void tampilPengajarMatkul(multiList L) {
         cout<<"Mata kuliah yang dicari tidak ditemukan.\n";
     }
 }
+void hapusRelasi(multiList &L,address_Dosen D){
+    address_matKul M = first_Matkul(L);
+    while(M!=NIL){
+        if (cekRelasi(M,D)){
+            address_relasi R = rel(M);
+            if (link(R)==D){
+                rel(M)=nextR(R);
+                link(R)=NIL;
+                delete R;
+            }else {
+                address_relasi R2 = nextR(R);
+                while (link(R2) != D) {
+                    R = nextR(R);
+                    R2 = nextR(R2);
+                }
+                link(R2) = NIL;
+                nextR(R) = nextR(R2);
+                delete R2;
+            }
+        }
+        M = nextM(M);
+    }
+}
 void HapusDosen(multiList &L) {
     infotype nama;
     cout<<"Nama dosen yang akan dihapus : ";
     cin>>nama;
     address_Dosen P = searchDosen(nama, L);
-    if (P != NULL && infoD(P) == nama) {
+    hapusRelasi(L,P);
+    if (P != NULL) {
         if (P == first_Dosen(L)) {
+            first_Dosen(L) = nextD(P);
             nextD(P) = NIL;
-            first_Dosen(L) = P;
         } else if (P == last_Dosen(L)) {
             address_Dosen Q = first_Dosen(L);
             while (nextD(Q) != P) {
