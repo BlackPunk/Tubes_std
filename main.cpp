@@ -11,6 +11,7 @@ int main() {
         cout<<"4. Hapus Mata Kuliah\n";
         cout<<"5. Hapus Dosen\n";
         cout<<"6. Menampilkan semua Mata kuliah beserta dosennya\n";
+        cout<<"7. Menampilkan mata kuliah yang diajarkan sebagian besar dosen\n";
         cout<<"8. Menampilkan dosen yang mengajar mata kuliah tertentu\n";
         cout<<"99. Keluar\n";
         cout<<"Masukkan Pilihan : ";cin>>Pil;
@@ -32,6 +33,9 @@ int main() {
                 break;
             case 6:
                 TampilMataKuliah(L);
+                break;
+            case 7:
+                tampilPengajarMatkulterbanyak(L);
                 break;
             case 8:
                 tampilPengajarMatkul(L); break;
