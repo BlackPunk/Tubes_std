@@ -1,6 +1,3 @@
-//
-// Created by jesbuz on 17/04/19.
-//
 #include "tubes.h"
 
 void createList(multiList &L){
@@ -140,5 +137,64 @@ void addRelasi(multiList &L){
         }else{
             cout<<"Dosen atas nama "<<infoD(Q)<<" sudah mengajar mata kuliah "<<infoM(P)<<"\n";
         }
+    }
+}
+void HapusMatkul(multiList &L) {
+    infotype nama;
+    cout<<"Mata kuliah yang akan dihapus : ";
+    cin>>nama;
+    address_matKul P = searchMatkul(nama, L);
+    if (P != NULL && infoM(P) == nama) {
+        if (P == first_Matkul(L)) {
+            nextM(P) = NIL;
+            first_Matkul(L) = P;
+        } else if (P == last_Matkul(L)) {
+            address_matKul Q = first_Matkul(L);
+            while (nextM(Q) != P) {
+                Q = nextM(Q);
+            }
+            nextM(Q) = NIL;
+            last_Matkul(L) = Q;
+        } else {
+            address_matKul Q = first_Matkul(L);
+            while (nextM(Q) != P) {
+                Q = nextM(Q);
+            }
+            nextM(Q) = nextM(P);
+            nextM(P) = NIL;
+        }
+        cout<<"Mata kuliah berhasil di hapus.\n";
+    } else {
+        cout<<"Mata kuliah tidak ditemukan.\n";
+    }
+}
+void HapusDosen(multiList &L) {
+    infotype nama;
+    cout<<"Nama dosen yang akan dihapus : ";
+    cin>>nama;
+    address_Dosen P = searchDosen(nama, L);
+    if (P != NULL && infoD(P) == nama) {
+        if (P == first_Dosen(L)) {
+            nextD(P) = NIL;
+            first_Dosen(L) = P;
+        } else if (P == last_Dosen(L)) {
+            address_Dosen Q = first_Dosen(L);
+            while (nextD(Q) != P) {
+                Q = nextD(Q);
+            }
+            nextD(Q) = NIL;
+            last_Dosen(L) = Q;
+        } else {
+            address_Dosen Q = first_Dosen(L);
+            while (nextD(Q) != P) {
+                Q = nextD(Q);
+            }
+            nextD(Q) = nextD(P);
+            nextD(P) = NIL;
+        }
+        cout<<"Dosen berhasil di hapus.\n";
+        delete P;
+    } else {
+        cout<<"Dosen tidak ditemukan.\n";
     }
 }
