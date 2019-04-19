@@ -16,6 +16,8 @@
 #include <iostream>
 #include <cstddef>
 #include <string>
+#include <stdlib.h>
+#include <conio.h>
 using namespace std;
 
 typedef string infotype;
@@ -58,10 +60,12 @@ void tambahMatkul(multiList &L);
 void HapusMatkul(multiList &L);
 void hapusRelasi(multiList &L, address_Dosen D);
 void HapusDosen(multiList &L);
-void TampilMataKuliah(multiList L);
+void TampilMataKuliahDanDosennya(multiList L);
 void tampilPengajarMatkulterbanyak(multiList L);
 void tampilPengajarMatkul(multiList L);
 int cek3matkul(address_matKul M, address_Dosen D);
 void tampilDosen3Matkul(multiList L);
+void tampilSemuaMatkul(multiList L);
+void tampilSemuaDosen(multiList L);
 
 #endif //TUBES_STD_TUBES_H
