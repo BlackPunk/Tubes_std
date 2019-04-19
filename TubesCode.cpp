@@ -69,6 +69,7 @@ bool cekRelasi(address_matKul M, address_Dosen D){
 void tambahDosen(multiList &L){
     infotype nama;
     address_Dosen P = first_Dosen(L);
+    tampilSemuaDosen(L);
     cout<<"Masukkan nama Dosen : ";cin>>nama;
     while(P != NIL && infoD(P)!=nama){
         P = nextD(P);
@@ -76,14 +77,16 @@ void tambahDosen(multiList &L){
     if (P==NIL || infoD(P)!=nama) {
         P = allocatedDosen(nama);
         insertDosen(P, L);
-        cout<<"  [+] Dosen atas nama "<<nama<<" berhasil di tambahkan...\n";
+        cout<<"\n[+] Dosen atas nama "<<nama<<" berhasil di tambahkan\n";
     }else if (infoD(P)==nama){
-        cout<<"  [!] Dosen atas nama "<<nama<<" sudah terdaftar...\n";
+        cout<<"\n[!] Dosen atas nama "<<nama<<" sudah terdaftar\n";
     }
+    getch();
 }
 void tambahMatkul(multiList &L){
     infotype nama;
     address_matKul P = first_Matkul(L);
+    tampilSemuaMatkul(L);
     cout<<"Masukkan nama Mata Kuliah : ";cin>>nama;
     while(P != NIL && infoM(P)!=nama){
         P = nextM(P);
@@ -91,107 +94,138 @@ void tambahMatkul(multiList &L){
     if (P==NIL || infoM(P)!=nama) {
         P = allocatedMatkul(nama);
         insertMatkul(P, L);
-        cout<<"  [+] Mata Kuliah "<<nama<<" berhasil di tambahkan...\n";
+        cout<<"\n[+] Mata Kuliah "<<nama<<" berhasil di tambahkan\n";
     }else if (infoM(P)==nama){
-        cout<<"  [!] Mata Kuliah "<<nama<<" sudah terdaftar...\n";
+        cout<<"\n[!] Mata Kuliah "<<nama<<" sudah terdaftar\n";
     }
+    getch();
 }
 void addRelasi(multiList &L){
     infotype input;
-    address_matKul P;
-    address_Dosen Q;
+    address_matKul P = first_Matkul(L);
+    address_Dosen Q = first_Dosen(L);
     bool valid = false;
-    while (!valid){
-        cout<<"Masukkan nama Mata kuliah ('menu' untuk kembali): "; cin>>input;
-        P = searchMatkul(input,L);
-        if (input == "menu" || P != NIL){
-            valid = true;
-        }else {
-            cout<<"  [!] Mata kuliah tidak tersedia.\n";
-        }
-    }
-    valid = false;
-    while (!valid && input != "menu"){
-        cout<<"Masukkan nama Dosen ('menu' untuk kembali): "; cin>>input;
-        Q = searchDosen(input,L);
-        if (input == "menu" || Q != NIL){
-            valid = true;
+    if (P==NIL || Q==NIL){
+        if (P!=NIL && Q==NIL){
+            cout<<"\n[!] Tidak ada Dosen yang tersedia";
+        }else if (P==NIL && Q!=NIL){
+            cout<<"\n[!] Tidak ada Mata kuliah yang tersedia";
         }else{
-            cout<<"  [!] Dosen tidak tersedia.\n";
+            cout<<"\n[!] Dosen dan Mata kuliah tidak tersedia";
         }
-    }
-    if (input != "menu"){
-        if (!cekRelasi(P,Q)){
-            address_relasi R = allocatedRel();
-            if (rel(P)==NIL) {
-                rel(P) = R;
-            }else{
-                address_relasi relation = rel(P);
-                while (nextR(relation)!=NIL){
-                    relation = nextR(relation);
-                }
-                nextR(relation) = R;
+        getch();
+    }else{
+        while (!valid){
+            tampilSemuaMatkul(L);
+            cout<<"Masukkan nama Mata kuliah ('exit' untuk kembali): "; cin>>input;
+            P = searchMatkul(input,L);
+            if (input == "exit" || P != NIL){
+                valid = true;
+            }else {
+                cout<<"[!] Mata kuliah tidak tersedia";
+                getch();
             }
-            link(R) = Q;
-            cout<<"  [+] Berhasil menghubungkan.\n";
-        }else{
-            cout<<"  [!] Dosen atas nama "<<infoD(Q)<<" sudah mengajar mata kuliah "<<infoM(P)<<"\n";
+        }
+        valid = false;
+        while (!valid && input != "exit"){
+            tampilSemuaDosen(L);
+            cout<<"Masukkan nama Dosen ('exit' untuk kembali): "; cin>>input;
+            Q = searchDosen(input,L);
+            if (input == "exit" || Q != NIL){
+                valid = true;
+            }else{
+                cout<<"[!] Dosen tidak tersedia";
+                getch();
+            }
+        }
+        if (input != "exit"){
+            if (!cekRelasi(P,Q)){
+                address_relasi R = allocatedRel();
+                if (rel(P)==NIL) {
+                    rel(P) = R;
+                }else{
+                    address_relasi relation = rel(P);
+                    while (nextR(relation)!=NIL){
+                        relation = nextR(relation);
+                    }
+                    nextR(relation) = R;
+                }
+                link(R) = Q;
+                cout<<"\n[+] Berhasil menghubungkan";
+            }else{
+                cout<<"\n[!] Dosen atas nama "<<infoD(Q)<<" sudah mengajar mata kuliah "<<infoM(P);
+            }
+            getch();
         }
     }
 }
 void HapusMatkul(multiList &L) {
     infotype nama;
-    cout<<"Mata kuliah yang akan dihapus : ";
-    cin>>nama;
-    address_matKul P = searchMatkul(nama, L);
-    if (P != NULL) {
-        if (P == first_Matkul(L)) {
-            first_Matkul(L) = nextM(P);
-            nextM(P) = NIL;
-        } else if (P == last_Matkul(L)) {
-            address_matKul Q = first_Matkul(L);
-            while (nextM(Q) != P) {
-                Q = nextM(Q);
+    address_matKul P = first_Matkul(L);
+    if (P!=NIL){
+        tampilSemuaMatkul(L);
+        cout<<"Mata kuliah yang akan dihapus : ";
+        cin>>nama;
+        P = searchMatkul(nama, L);
+        if (P != NULL) {
+            if (P == first_Matkul(L)) {
+                first_Matkul(L) = nextM(P);
+                nextM(P) = NIL;
+            } else if (P == last_Matkul(L)) {
+                address_matKul Q = first_Matkul(L);
+                while (nextM(Q) != P) {
+                    Q = nextM(Q);
+                }
+                nextM(Q) = NIL;
+                last_Matkul(L) = Q;
+            } else {
+                address_matKul Q = first_Matkul(L);
+                while (nextM(Q) != P) {
+                    Q = nextM(Q);
+                }
+                nextM(Q) = nextM(P);
+                nextM(P) = NIL;
             }
-            nextM(Q) = NIL;
-            last_Matkul(L) = Q;
+            delete P;
+            cout<<"\n[!] Mata kuliah berhasil di hapus";
         } else {
-            address_matKul Q = first_Matkul(L);
-            while (nextM(Q) != P) {
-                Q = nextM(Q);
-            }
-            nextM(Q) = nextM(P);
-            nextM(P) = NIL;
+            cout<<"\n[!] Mata kuliah tidak tersedia";
         }
-        delete P;
-        cout<<"  [!] Mata kuliah berhasil di hapus.\n";
-    } else {
-        cout<<"  [!] Mata kuliah tidak ditemukan.\n";
+    }else{
+        cout<<"\n[!] Mata kuliah kosong";
     }
+    getch();
 }
 void tampilPengajarMatkul(multiList L) {
     infotype nama;
-    cout<<"Mata kuliah yang dicari : ";
-    cin>>nama;
-    address_matKul P = searchMatkul(nama, L);
-    if (P != NIL) {
-        address_relasi Q = rel(P);
-        if (Q != NIL) {
-            cout << "Dosen yang mengajar mata kuliah " << infoM(P) << " : \n";
-            int i = 0;
-            while (Q != NIL) {
-                if (link(Q) != NIL) {
-                    i += 1;
-                    cout << i << ". " << infoD(link(Q)) << endl;
+    address_matKul P = first_Matkul(L);
+    if (P!=NIL){
+        tampilSemuaMatkul(L);
+        cout<<"Masukkan nama Mata kuliah : ";
+        cin>>nama;
+        P = searchMatkul(nama, L);
+        if (P != NIL) {
+            address_relasi Q = rel(P);
+            if (Q != NIL) {
+                cout << "\n[*] Dosen yang mengajar mata kuliah " << infoM(P) << " : \n";
+                int i = 0;
+                while (Q != NIL) {
+                    if (link(Q) != NIL) {
+                        i += 1;
+                        cout << i << ". " << infoD(link(Q)) << endl;
+                    }
+                    Q = nextR(Q);
                 }
-                Q = nextR(Q);
+            }else{
+                cout<<"\n[!] Tidak ada dosen yang mengajar Mata kuliah ini";
             }
-        }else{
-            cout<<"  [!] Tidak ada dosen yang mengajar Mata kuliah ini\n";
+        } else {
+            cout<<"\n[!] Mata kuliah tidak tersedia";
         }
-    } else {
-        cout<<"  [!] Mata kuliah yang dicari tidak ditemukan.\n";
+    }else{
+        cout<<"\n[!] Tidak ada mata kuliah yang tersedia";
     }
+    getch();
 }
 void hapusRelasi(multiList &L,address_Dosen D){
     address_matKul M = first_Matkul(L);
@@ -218,38 +252,46 @@ void hapusRelasi(multiList &L,address_Dosen D){
 }
 void HapusDosen(multiList &L) {
     infotype nama;
-    cout<<"Nama dosen yang akan dihapus : ";
-    cin>>nama;
-    address_Dosen P = searchDosen(nama, L);
-    hapusRelasi(L,P);
-    if (P != NULL) {
-        if (P == first_Dosen(L)) {
-            first_Dosen(L) = nextD(P);
-            nextD(P) = NIL;
-        } else if (P == last_Dosen(L)) {
-            address_Dosen Q = first_Dosen(L);
-            while (nextD(Q) != P) {
-                Q = nextD(Q);
+    address_Dosen P = first_Dosen(L);
+    if (P!=NIL){
+
+        cout<<"Nama dosen yang akan dihapus : ";
+        cin>>nama;
+        P = searchDosen(nama, L);
+        hapusRelasi(L,P);
+        if (P != NULL) {
+            if (P == first_Dosen(L)) {
+                first_Dosen(L) = nextD(P);
+                nextD(P) = NIL;
+            } else if (P == last_Dosen(L)) {
+                address_Dosen Q = first_Dosen(L);
+                while (nextD(Q) != P) {
+                    Q = nextD(Q);
+                }
+                nextD(Q) = NIL;
+                last_Dosen(L) = Q;
+            } else {
+                address_Dosen Q = first_Dosen(L);
+                while (nextD(Q) != P) {
+                    Q = nextD(Q);
+                }
+                nextD(Q) = nextD(P);
+                nextD(P) = NIL;
             }
-            nextD(Q) = NIL;
-            last_Dosen(L) = Q;
+            cout<<"\n[-] Dosen berhasil di hapus";
+            delete P;
         } else {
-            address_Dosen Q = first_Dosen(L);
-            while (nextD(Q) != P) {
-                Q = nextD(Q);
-            }
-            nextD(Q) = nextD(P);
-            nextD(P) = NIL;
+            cout<<"\n[!] Dosen tidak ditemukan";
         }
-        cout<<"  [-] Dosen berhasil di hapus.\n";
-        delete P;
-    } else {
-        cout<<"  [!] Dosen tidak ditemukan.\n";
+    }else{
+        cout<<"\n[!] Dosen kosong";
     }
+    getch();
 }
-void TampilMataKuliah(multiList L){
+void TampilMataKuliahDanDosennya(multiList L){
     address_matKul P = first_Matkul(L);
     if (P!=NIL) {
+        cout<<endl;
         while (P != NIL) {
             cout << "Mata Kuliah : " << infoM(P) << "\n";
             cout << "  [*] Dosen : ";
@@ -262,15 +304,16 @@ void TampilMataKuliah(multiList L){
                     }
                     R = nextR(R);
                 }
-                cout<<"\n";
             } else {
-                cout << "Tidak ada.\n";
+                cout << "Tidak ada.";
             }
+            cout<<endl;
             P = nextM(P);
         }
     }else{
-        cout<<"  [!] Tidak ada mata kuliah yang tersedia.\n";
+        cout<<"\n[!] Tidak ada mata kuliah yang tersedia";
     }
+    getch();
 }
 void tampilPengajarMatkulterbanyak(multiList L) {
     address_matKul M = first_Matkul(L);
@@ -278,6 +321,7 @@ void tampilPengajarMatkulterbanyak(multiList L) {
     address_relasi R;
     int MAX = 0;
     if (M!=NIL) {
+        tampilSemuaMatkul(L);
         while (M != NIL) {
             int Count = 0;
             R = rel(M);
@@ -292,12 +336,13 @@ void tampilPengajarMatkulterbanyak(multiList L) {
             M = nextM(M);
         }
         if (MAX > 0)
-            cout <<"  [*] Mata kuliah yang diajarkan oleh sebagian besar dosen adalah " << infoM(Maks) << endl;
+            cout <<"[*] Mata kuliah yang diajarkan oleh sebagian besar dosen adalah " << infoM(Maks);
         else
-            cout<<"  [!] Semua Mata kuliah tidak mempunyai Dosen pengajar.\n";
+            cout<<"[!] Semua Mata kuliah tidak mempunyai Dosen pengajar";
     }
     else
-        cout<<"  [!] Tidak ada Mata kuliah yang tersedia.\n";
+        cout<<"\n[!] Tidak ada Mata kuliah yang tersedia";
+    getch();
 }
 int cek3matkul(address_matKul M, address_Dosen D){
     int count = 0;
@@ -315,6 +360,7 @@ void tampilDosen3Matkul(multiList L){
     if (D!=NIL){
         int i = 0;
         if (M!=NIL) {
+            cout<<endl;
             cout << "Dosen yang mengajar lebih dari tiga kursus : \n";
             do {
                 if (cek3matkul(M, D) > 3) {
@@ -324,8 +370,37 @@ void tampilDosen3Matkul(multiList L){
                 D = nextD(D);
             } while (D != NIL);
             if (i == 0)
-                cout << "  [!] Tidak ada\n";
+                cout << "\n[!] Tidak ada";
         } else
-            cout<<"  [!] Tidak ada Mata kuliah yang tersedia\n";
+            cout<<"\n[!] Tidak ada Mata kuliah yang tersedia";
+    }else{
+        cout<<"\n[!] Tidak ada Dosen yang tersedia";
+    }
+    getch();
+}
+void tampilSemuaMatkul(multiList L){
+    address_matKul M = first_Matkul(L);
+    int i = 0;
+    if (M!=NIL){
+        cout<<"\nMata kuliah yang terdaftar :\n";
+        do{
+            i += 1;
+            cout<<i<<". "<<infoM(M)<<endl;
+            M = nextM(M);
+        }while (M!=NIL);
+        cout<<endl;
+    }
+}
+void tampilSemuaDosen(multiList L){
+    address_Dosen D = first_Dosen(L);
+    int i = 0;
+    if (D!=NIL){
+        cout<<"\nDosen yang terdaftar :\n";
+        do{
+            i += 1;
+            cout<<i<<". "<<infoD(D)<<endl;
+            D = nextD(D);
+        }while (D!=NIL);
+        cout<<endl;
     }
 }
