@@ -6,17 +6,21 @@ int main() {
     int Pil= -1;
     while (Pil != 99){
         system("CLS");
-        cout<<"1. Tambahkan Mata Kuliah\n";
-        cout<<"2. Tambahkan Dosen\n";
-        cout<<"3. Hubungkan Dosen dengan Mata Kuliah\n";
-        cout<<"4. Hapus Mata Kuliah\n";
-        cout<<"5. Hapus Dosen\n";
-        cout<<"6. Menampilkan semua Mata kuliah beserta dosennya\n";
-        cout<<"7. Menampilkan Mata kuliah yang diajarkan sebagian besar Dosen\n";
-        cout<<"8. Menampilkan Dosen yang mengajar mata kuliah tertentu\n";
-        cout<<"9. Menampilkan Dosen yang mengajar lebih dari tiga kursus\n";
-        cout<<"99. Keluar\n";
-        cout<<"Masukkan Pilihan : ";cin>>Pil;
+        cout<<"+------------------------------------------------------------------+\n";
+        cout<<"|                    *  SISTEM PERKULIAHAN  *                      |\n";
+        cout<<"+------------------------------------------------------------------+\n";
+        cout<<"| 1. Tambahkan Mata Kuliah                                         |\n";
+        cout<<"| 2. Tambahkan Dosen                                               |\n";
+        cout<<"| 3. Hubungkan Dosen dengan Mata Kuliah                            |\n";
+        cout<<"| 4. Hapus Mata Kuliah                                             |\n";
+        cout<<"| 5. Hapus Dosen                                                   |\n";
+        cout<<"| 6. Menampilkan semua Mata kuliah beserta dosennya                |\n";
+        cout<<"| 7. Menampilkan Mata kuliah yang diajarkan sebagian besar Dosen   |\n";
+        cout<<"| 8. Menampilkan Dosen yang mengajar mata kuliah tertentu          |\n";
+        cout<<"| 9. Menampilkan Dosen yang mengajar lebih dari tiga kursus        |\n";
+        cout<<"| 99. Keluar                                                       |\n";
+        cout<<"+__________________________________________________________________+\n";
+        cout<<"\nMasukkan Pilihan : ";cin>>Pil;
         switch (Pil){
             case 1:
                 tambahMatkul(L);
@@ -35,6 +39,7 @@ int main() {
                 break;
             case 6:
                 TampilMataKuliahDanDosennya(L);
+                getch();
                 break;
             case 7:
                 tampilPengajarMatkulterbanyak(L);
