@@ -254,7 +254,7 @@ void HapusDosen(multiList &L) {
     infotype nama;
     address_Dosen P = first_Dosen(L);
     if (P!=NIL){
-
+        tampilSemuaDosen(L);
         cout<<"Nama dosen yang akan dihapus : ";
         cin>>nama;
         P = searchDosen(nama, L);
@@ -313,7 +313,6 @@ void TampilMataKuliahDanDosennya(multiList L){
     }else{
         cout<<"\n[!] Tidak ada mata kuliah yang tersedia";
     }
-    getch();
 }
 void tampilPengajarMatkulterbanyak(multiList L) {
     address_matKul M = first_Matkul(L);
@@ -321,7 +320,7 @@ void tampilPengajarMatkulterbanyak(multiList L) {
     address_relasi R;
     int MAX = 0;
     if (M!=NIL) {
-        tampilSemuaMatkul(L);
+        TampilMataKuliahDanDosennya(L);
         while (M != NIL) {
             int Count = 0;
             R = rel(M);
@@ -336,9 +335,9 @@ void tampilPengajarMatkulterbanyak(multiList L) {
             M = nextM(M);
         }
         if (MAX > 0)
-            cout <<"[*] Mata kuliah yang diajarkan oleh sebagian besar dosen adalah " << infoM(Maks);
+            cout <<"\n[*] Mata kuliah yang diajarkan oleh sebagian besar dosen adalah " << infoM(Maks);
         else
-            cout<<"[!] Semua Mata kuliah tidak mempunyai Dosen pengajar";
+            cout<<"\n[!] Semua Mata kuliah tidak mempunyai Dosen pengajar";
     }
     else
         cout<<"\n[!] Tidak ada Mata kuliah yang tersedia";
