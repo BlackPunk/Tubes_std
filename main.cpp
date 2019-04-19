@@ -5,7 +5,8 @@ int main() {
     createList(L);
     int Pil= -1;
     while (Pil != 99){
-        cout<<"\n1. Tambahkan Mata Kuliah\n";
+        system("CLS");
+        cout<<"1. Tambahkan Mata Kuliah\n";
         cout<<"2. Tambahkan Dosen\n";
         cout<<"3. Hubungkan Dosen dengan Mata Kuliah\n";
         cout<<"4. Hapus Mata Kuliah\n";
@@ -33,7 +34,7 @@ int main() {
                 HapusDosen(L);
                 break;
             case 6:
-                TampilMataKuliah(L);
+                TampilMataKuliahDanDosennya(L);
                 break;
             case 7:
                 tampilPengajarMatkulterbanyak(L);
@@ -48,6 +49,7 @@ int main() {
                 break;
             default:
                 cout<<"Pilihan tidak ada...\n";
+                getch();
         }
     }
     return 0;
