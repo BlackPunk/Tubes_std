@@ -58,7 +58,7 @@ void addRelasi(multiList &L);
 void tambahDosen(multiList &L);
 void tambahMatkul(multiList &L);
 void HapusMatkul(multiList &L);
-void hapusRelasi(multiList &L, address_Dosen D);
+void HapusRelasi(address_matKul &M, address_Dosen D);
 void HapusDosen(multiList &L);
 void TampilMataKuliahDanDosennya(multiList L);
 void tampilPengajarMatkulterbanyak(multiList L);
@@ -67,5 +67,5 @@ int cek3matkul(address_matKul M, address_Dosen D);
 void tampilDosen3Matkul(multiList L);
 void tampilSemuaMatkul(multiList L);
 void tampilSemuaDosen(multiList L);
-
+void menuHapusRelasi(multiList &L);
 #endif //TUBES_STD_TUBES_H
